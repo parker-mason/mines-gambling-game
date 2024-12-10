@@ -6,7 +6,7 @@ background_color = (192, 71, 252)
 
 screen = pygame.display.set_mode((500, 500))
 
-screen.fill(background_color)
+screen.fill(background_color) #andrew booger was here
 
 running = True
 
