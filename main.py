@@ -18,8 +18,6 @@ screen.fill(PURPLE)
 
 running = True
 
-
-
 while running:
 
   for event in pygame.event.get():
