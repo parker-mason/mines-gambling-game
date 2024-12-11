@@ -13,11 +13,8 @@ PURPLE = (192, 71, 252)
 
 screen = pygame.display.set_mode((500, 500))
 
-<<<<<<< HEAD
-screen.fill(background_color) #andrew booger was here
-=======
 screen.fill(PURPLE)
->>>>>>> 42143fab43b0776d4970b373e08c06bb3500e008
+
 
 running = True
 
