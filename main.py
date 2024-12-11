@@ -2,31 +2,15 @@ import pygame
 
 import time
 
-def color_advance(color_value, time_slept = 0.1):
-  if color_value == 0:
-    time.sleep(time_slept)
-    screen.fill(RED)
-    return color_value + 1
-  if color_value == 1:
-    time.sleep(time_slept)
-    screen.fill(ORANGE)
-    return color_value + 1
-  if color_value == 2:
-    time.sleep(time_slept)
-    screen.fill(YELLOW)
-    return color_value + 1
-  if color_value == 3:
-    time.sleep(time_slept)
-    screen.fill(GREEN)
-    return color_value + 1
-  if color_value == 4:
-    time.sleep(time_slept)
-    screen.fill(BLUE)
-    return color_value + 1
+def color_advance(time_slept = 0.1):
   if color_value == 5:
     time.sleep(time_slept)
     screen.fill(PURPLE)
     return 0
+
+  time.sleep(time_slept)
+  screen.fill(color[color_value])
+  return color_value + 1
 
 pygame.init()
 
@@ -39,6 +23,8 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 PURPLE = (192, 71, 252)
 
+color = [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE]
+
 screen = pygame.display.set_mode((500, 500))
 
 screen.fill(PURPLE)
@@ -50,7 +36,7 @@ while running:
 
   keys = pygame.key.get_pressed()
   if keys[pygame.K_SPACE]:
-    color_value = color_advance(color_value)
+    color_value = color_advance()
 
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
