@@ -45,6 +45,25 @@ while running:
         screen.fill(PURPLE)
         color_value = 0
     elif event.type == pygame.KEYDOWN:
+      if event.key == pygame.K_SPACE:
+          if color_value == 0:
+            screen.fill(RED)
+            color_value += 1
+          elif color_value == 1:
+            screen.fill(ORANGE)
+            color_value += 1
+          elif color_value == 2:
+            screen.fill(YELLOW)
+            color_value += 1
+          elif color_value == 3:
+            screen.fill(GREEN)
+            color_value += 1
+          elif color_value == 4:
+            screen.fill(BLUE)
+            color_value += 1
+          elif color_value == 5:
+            screen.fill(PURPLE)
+            color_value = 0
       if event.key == pygame.K_RSHIFT:
         print("Why are you using Right Shift???")
         running = False
