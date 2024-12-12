@@ -1,4 +1,4 @@
-import pygame
+import pygame #fuck you andrew, you are demoted to my 5th favorite black person, you should give me sloppy slop in the bathroom to compensate for your errors, I will taste your insides. - Parker Ray Mason 
 
 pygame.init()
 
