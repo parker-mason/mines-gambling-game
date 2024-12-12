@@ -1,68 +1,62 @@
 import pygame
 
-import time
-
-def color_advance(time_slept = 0.1):
-  if color_value == 5:
-    time.sleep(time_slept)
-    screen.fill(PURPLE)
-    return 0
-
-  time.sleep(time_slept)
-  screen.fill(color[color_value])
-  return color_value + 1
-
 pygame.init()
 
-color_value = 0
+class Sprite(pygame.sprite.Sprite):
+  def __init__(self, image):
+    super().__init__()
+    self.image = pygame.image.load(image)
 
-RED = (255, 0, 0)
-ORANGE = (225, 126, 0)
-YELLOW = (255, 255, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-PURPLE = (192, 71, 252)
+BACKGROUND_COLOR = (39, 48, 46)
+GEM_WIDTH = 144
+GEM_HEIGHT = 144
+MAX_GEM_COUNT = 5
+MAX_GEM_NEWLINE_COUNT = 4
+WINDOW_HEIGHT = 900
+WINDOW_LENGTH = 1200
 
-color = [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE]
+HORIZONTAL_PADDING = 80
+VERTICAL_PADDING = 30
 
-screen = pygame.display.set_mode((500, 500))
+gem_newline = 0
+gem_cowunter = 5
+x = 0
+y = 0
 
-screen.fill(PURPLE)
+gem = Sprite("Assets/Gem.png")
 
+def load_sprite(sprite, x, y):
+  screen.blit(sprite.image, (x, y))
+  
+screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
+
+screen.fill(BACKGROUND_COLOR)
 
 running = True
 
 while running:
 
+  if gem_counter > 0:
+    x += GEM_WIDTH + HORIZONTAL_PADDING
+    load_sprite(gem, x, y)
+    gem_counter -= 1
+    if gem_counter == 0:
+      gem_counter = MAX_GEM_COUNT
+      x = HORIZONTAL_PADDING
+      y += GEM_HEIGHT + VERTICAL_PADDING
+      gem_newline += 1
+    if gem_newline > MAX_GEM_NEWLINE_COUNT:
+      gem_counter = 0
+      gem_newline = 0
+
   keys = pygame.key.get_pressed()
-  if keys[pygame.K_SPACE]:
-    color_value = color_advance()
 
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
-    elif event.type == pygame.MOUSEBUTTONDOWN:
-      if color_value == 0:
-        screen.fill(RED)
-        color_value += 1
-      elif color_value == 1:
-        screen.fill(ORANGE)
-        color_value += 1
-      elif color_value == 2:
-        screen.fill(YELLOW)
-        color_value += 1
-      elif color_value == 3:
-        screen.fill(GREEN)
-        color_value += 1
-      elif color_value == 4:
-        screen.fill(BLUE)
-        color_value += 1
-      elif color_value == 5:
-        screen.fill(PURPLE)
-        color_value = 0
     if event.type == pygame.KEYDOWN:
       if event.key == pygame.K_RSHIFT:
-        print("Why are you using Right Shift???")
+        print("quit shortcut key pressed\nexiting program...")
         running = False
         
   pygame.display.update()
