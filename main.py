@@ -10,16 +10,17 @@ class Sprite(pygame.sprite.Sprite):
 BACKGROUND_COLOR = (39, 48, 46)
 GEM_WIDTH = 144
 GEM_HEIGHT = 144
-MAX_GEM_COUNT = 5
-MAX_GEM_NEWLINE_COUNT = 4
+MAX_GEM_COUNT = 25
+MAX_GEMS_TO_PRINT = 5
+
 WINDOW_HEIGHT = 900
 WINDOW_LENGTH = 1200
-
 HORIZONTAL_PADDING = 80
 VERTICAL_PADDING = 30
 
-gem_newline = 0
-gem_counter = 5
+gem_counter = MAX_GEM_COUNT
+gems_to_print = MAX_GEMS_TO_PRINT
+can_print = True
 x = 0
 y = 0
 
@@ -36,22 +37,22 @@ running = True
 
 while running:
 
-  if gem_counter == 5:
+  if gems_to_print == MAX_GEMS_TO_PRINT:
     x += HORIZONTAL_PADDING
-    load_sprite(gem, x, y)
-    gem_counter -= 1
-  if gem_counter > 0:
+    y += VERTICAL_PADDING
+    gems_to_print -= 1
+    can_print = True
+  elif gems_to_print > 0:
     x += GEM_WIDTH + HORIZONTAL_PADDING
+    gems_to_print -= 1
+  else:
+    x = 0
+    y += GEM_HEIGHT
+    gems_to_print = MAX_GEMS_TO_PRINT
+    can_print = False
+  if gem_counter > 0 and can_print:
     load_sprite(gem, x, y)
     gem_counter -= 1
-    if gem_counter == 0:
-      gem_counter = MAX_GEM_COUNT
-      x = 0
-      y += GEM_HEIGHT + VERTICAL_PADDING
-      gem_newline += 1
-    if gem_newline > MAX_GEM_NEWLINE_COUNT:
-      gem_counter = 0
-      gem_newline = 0
 
   keys = pygame.key.get_pressed()
 
