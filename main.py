@@ -19,7 +19,7 @@ HORIZONTAL_PADDING = 80
 VERTICAL_PADDING = 30
 
 gem_newline = 0
-gem_cowunter = 5
+gem_counter = 5
 x = 0
 y = 0
 
