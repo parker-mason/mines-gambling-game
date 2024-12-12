@@ -36,13 +36,17 @@ running = True
 
 while running:
 
+  if gem_counter == 5:
+    x += HORIZONTAL_PADDING
+    load_sprite(gem, x, y)
+    gem_counter -= 1
   if gem_counter > 0:
     x += GEM_WIDTH + HORIZONTAL_PADDING
     load_sprite(gem, x, y)
     gem_counter -= 1
     if gem_counter == 0:
       gem_counter = MAX_GEM_COUNT
-      x = HORIZONTAL_PADDING
+      x = 0
       y += GEM_HEIGHT + VERTICAL_PADDING
       gem_newline += 1
     if gem_newline > MAX_GEM_NEWLINE_COUNT:
