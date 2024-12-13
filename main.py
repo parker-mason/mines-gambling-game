@@ -39,8 +39,8 @@ def get_clicked(events):
 
 def load_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
-  gems.append(sprite.image.get_rect())
-  gems[-(gem_counter-25)].x = x
+  gems.append(sprite.image.get_rect()) #the get_rect function returns a rectangle the size of the image calling it
+  gems[-(gem_counter-25)].x = x        #could have also done gems.append((144, 144), (x, y))
   gems[-(gem_counter-25)].y = y
 
 screen.fill(BACKGROUND_COLOR)
