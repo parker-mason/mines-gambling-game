@@ -17,7 +17,7 @@ screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
 
 randmine = random.randint(1,25)
 
-gems = []
+board = []
 
 gem = Sprite("Assets/Gem.png")
 mine = Sprite("Assets/Mine.png")
@@ -32,21 +32,23 @@ gem_counter = 0
 x = 0
 y = 0
 
-def process_click(i):
-  print(f"gem {i+1} was clicked")
+
 
 def get_clicked(events):
   for event in events:
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
-        if gems[i].collidepoint(event.pos):
-          process_click(i)
+          if board[i].collidepoint(event.pos):
+            if i+1 == randmine:
+              print("you clicked a mine stupidface")
+            else:
+              print(f"You clicked gem number {i+1}")
 
 def load_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
-  gems.append(sprite.image.get_rect()) #the get_rect function returns a rectangle the size of the image calling it
-  gems[gem_counter-1].x = x        #could have also done gems.append((144, 144), (x, y))
-  gems[gem_counter-1].y = y
+  board.append(sprite.image.get_rect()) #the get_rect function returns a rectangle the size of the image calling it
+  board[gem_counter-1].x = x        #could have also done gems.append((144, 144), (x, y))
+  board[gem_counter-1].y = y
 
 screen.fill(BACKGROUND_COLOR)
 
