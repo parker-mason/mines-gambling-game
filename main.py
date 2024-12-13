@@ -1,5 +1,7 @@
 import pygame #fuck you andrew, you are demoted to my 5th favorite black person, you should give me sloppy slop in the bathroom to compensate for your errors, I will taste your insides. - Parker Ray Mason 
 
+import random
+
 pygame.init()
 
 class Sprite(pygame.sprite.Sprite):
@@ -13,9 +15,12 @@ WINDOW_LENGTH = 1200
 
 screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
 
+randmine = random.randint(1,25)
+
 gems = []
 
 gem = Sprite("Assets/Gem.png")
+mine = Sprite("Assets/Mine.png")
 
 GEM_WIDTH = 144
 GEM_HEIGHT = 144
@@ -23,25 +28,25 @@ MAX_GEM_COUNT = 25
 MAX_GEMS_TO_PRINT = 5
 HORIZONTAL_PADDING = 80
 VERTICAL_PADDING = 30
-gem_counter = MAX_GEM_COUNT
+gem_counter = 0
 x = 0
 y = 0
 
-def process_click():
-  print("a gem was clicked")
+def process_click(i):
+  print(f"gem {i+1} was clicked")
 
 def get_clicked(events):
   for event in events:
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
         if gems[i].collidepoint(event.pos):
-          process_click()
+          process_click(i)
 
 def load_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
   gems.append(sprite.image.get_rect()) #the get_rect function returns a rectangle the size of the image calling it
-  gems[-(gem_counter-25)].x = x        #could have also done gems.append((144, 144), (x, y))
-  gems[-(gem_counter-25)].y = y
+  gems[gem_counter-1].x = x        #could have also done gems.append((144, 144), (x, y))
+  gems[gem_counter-1].y = y
 
 screen.fill(BACKGROUND_COLOR)
 
@@ -59,8 +64,11 @@ while running:
           x += HORIZONTAL_PADDING
         else:
           x += HORIZONTAL_PADDING + GEM_WIDTH
-        load_sprite(gem, x, y)
-        gem_counter -= 1
+        gem_counter += 1
+        if randmine == gem_counter:
+          load_sprite(mine, x, y)
+        else:
+          load_sprite(gem, x, y)
       y += GEM_HEIGHT
       x = 0
     displayed_gems = True
@@ -74,6 +82,7 @@ while running:
     if event.type == pygame.KEYDOWN:
       if event.key == pygame.K_RSHIFT:
         print("quit shortcut key pressed\nexiting program...")
+        print(randmine)
         running = False
         
   get_clicked(events)
