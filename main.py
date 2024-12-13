@@ -3,9 +3,22 @@ import pygame #fuck you andrew, you are demoted to my 5th favorite black person,
 pygame.init()
 
 class Sprite(pygame.sprite.Sprite):
-  def __init__(self, image):
+  def __init__(self, image, x, y, func):
     super().__init__()
     self.image = pygame.image.load(image)
+    self.rect = self.image.get_rect()
+    self.rect.x = x
+    self.rect.y = y
+    self.callback = func
+
+  def update(self, events):
+    for event in events:
+      if event.type == pygame.MOUSEBUTTONUP:
+        if self.rect.collidepoint(event.pos):
+          self.callback()
+
+def process_click():
+  print("a gem was clicked")
 
 BACKGROUND_COLOR = (39, 48, 46)
 GEM_WIDTH = 144
@@ -24,7 +37,7 @@ can_print = True
 x = 0
 y = 0
 
-gem = Sprite("Assets/Gem.png")
+gem = Sprite("Assets/Gem.png", x, x, process_click)
 
 def load_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
@@ -55,8 +68,9 @@ while running:
     gem_counter -= 1
 
   keys = pygame.key.get_pressed()
+  events = pygame.event.get()
 
-  for event in pygame.event.get():
+  for event in events:
     if event.type == pygame.QUIT:
       running = False
     if event.type == pygame.KEYDOWN:
@@ -64,6 +78,8 @@ while running:
         print("quit shortcut key pressed\nexiting program...")
         running = False
         
+  gem.update(events)
+
   pygame.display.update()
 
 pygame.quit()
