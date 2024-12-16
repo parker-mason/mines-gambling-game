@@ -15,7 +15,7 @@ WINDOW_LENGTH = 1200
 
 screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
 
-randmine = random.randint(1,25)
+randmine = 25#random.randint(1,25)
 
 board = []
 clicked_tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
@@ -36,14 +36,16 @@ y = 0
 
 def get_clicked(events):
   global clicked_tiles
+  global running
   for event in events:
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
-          if board[i].collidepoint(event.pos) and clicked_tiles[i] != 1:
+          if board[i].collidepoint(event.pos) and clicked_tiles[i] != 1 and not has_won():
             if i+1 == randmine:
               reload_sprite(mine, board[i].x, board[i].y)
               clicked_tiles[i] = 1
               print("you clicked a mine stupidface")
+              running = False
             else:
               reload_sprite(gem, board[i].x, board[i].y)
               clicked_tiles[i] = 1
@@ -58,6 +60,13 @@ def load_sprite(sprite, x, y):
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
+
+def has_won():
+  for i in range(0, 25):
+    if clicked_tiles[i] == 0 and i+1 != randmine:
+      return False
+  return True
+
 
 screen.fill(BACKGROUND_COLOR)
 
@@ -96,5 +105,10 @@ while running:
     get_clicked(events)
 
   pygame.display.update()
+  
+  if has_won():
+    print("You did it!")
+    running = False
+    exit
 
 pygame.quit()
