@@ -15,7 +15,7 @@ WINDOW_LENGTH = 1200
 
 screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
 
-randmine = 25#random.randint(1,25)
+randmine = random.randint(1,25)
 
 board = []
 clicked_tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
