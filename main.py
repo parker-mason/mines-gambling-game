@@ -1,7 +1,5 @@
 import pygame #fuck you andrew, you are demoted to my 5th favorite black person, you should give me sloppy slop in the bathroom to compensate for your errors, I will taste your insides. - Parker Ray Mason 
 
-import time
-
 import random
 
 pygame.init()
@@ -36,28 +34,30 @@ gem_counter = 0
 x = 0
 y = 0
 
-
-
 def get_clicked(events):
+  global clicked_tiles
   for event in events:
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
           if board[i].collidepoint(event.pos) and clicked_tiles[i] != 1:
             if i+1 == randmine:
-              load_sprite(mine, board[i].x, board[i].y)
+              reload_sprite(mine, board[i].x, board[i].y)
               clicked_tiles[i] = 1
               print("you clicked a mine stupidface")
             else:
-              load_sprite(gem, board[i].x, board[i].y)
+              reload_sprite(gem, board[i].x, board[i].y)
               clicked_tiles[i] = 1
-              print(f"You clicked gem number {i+1} ({board[i].x}, {board[i].y})")
-            time.sleep(2)
+              print(f"You clicked gem number {i+1}")
 
 def load_sprite(sprite, x, y):
+  global board
   screen.blit(sprite.image, (x, y))
   board.append(sprite.image.get_rect())
   board[gem_counter-1].x = x
   board[gem_counter-1].y = y
+
+def  reload_sprite(sprite, x, y):
+  screen.blit(sprite.image, (x, y))
 
 screen.fill(BACKGROUND_COLOR)
 
@@ -79,7 +79,6 @@ while running:
         load_sprite(blank_tile, x, y)
       y += GEM_HEIGHT
       x = 0
-    print(randmine)
     displayed_gems = True
 
   keys = pygame.key.get_pressed()
@@ -91,10 +90,10 @@ while running:
     if event.type == pygame.KEYDOWN:
       if event.key == pygame.K_RSHIFT:
         print("quit shortcut key pressed\nexiting program...")
-        print(board)
         running = False
-        
-  get_clicked(events)
+
+  if not clicked_tiles[randmine-1]:
+    get_clicked(events)
 
   pygame.display.update()
 
