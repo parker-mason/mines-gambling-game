@@ -68,6 +68,19 @@ def mine_blink(sprite, x, y, time_slept):
   reload_sprite(sprite, x, y)
   time.sleep(time_slept)
 
+def generate_mine(number_of_mines):
+  mines_unused = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25]
+  possible_mines = 25
+  mines = []
+  for i in range(1, number_of_mines+1):
+    mine_generated = random.randint(1,possible_mines)
+    mines.append(mines_unused[mine_generated-1])
+    mines_unused.pop(mine_generated-1)
+    possible_mines -= 1
+  return mines
+  
+
+
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
   pygame.display.update()
