@@ -41,25 +41,17 @@ y = 0
 
 def get_clicked(events):
   global clicked_tiles
-  global running
   global number_of_clicked_gems
   for event in events:
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
           if board[i].collidepoint(event.pos) and clicked_tiles[i] != 1 and not has_won():
             if i+1 == randmine:
-              reload_sprite(mine, board[i].x, board[i].y)
-              time.sleep(0.25)
-              reload_sprite(mine_lost, board[i].x, board[i].y)
-              time.sleep(0.25)
-              reload_sprite(mine, board[i].x, board[i].y)
-              time.sleep(0.5)
+              mine_blink(mine, board[i].x, board[i].y, 0.25)
+              mine_blink(mine_lost, board[i].x, board[i].y, 0.25)
+              mine_blink(mine, board[i].x, board[i].y, 0.25)
               reload_sprite(lose_screen, 0, 390)
-              time.sleep(1.5)
               clicked_tiles[i] = 1
-              print("you clicked a mine stupidface")
-              print(f"you clicked {number_of_clicked_gems} gems!")
-              running = False
             else:
               reload_sprite(gem, board[i].x, board[i].y)
               clicked_tiles[i] = 1
@@ -71,6 +63,10 @@ def load_sprite(sprite, x, y):
   board.append(sprite.image.get_rect())
   board[gem_counter-1].x = x
   board[gem_counter-1].y = y
+
+def mine_blink(sprite, x, y, time_slept):
+  reload_sprite(sprite, x, y)
+  time.sleep(time_slept)
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
@@ -115,17 +111,28 @@ while running:
       if event.key == pygame.K_RSHIFT:
         print("quit shortcut key pressed\nexiting program...")
         running = False
+      elif event.key == pygame.K_RETURN:
+        if True:#clicked_tiles[randmine-1]:
+          board.clear()
+          randmine = random.randint(1,25)
+          displayed_gems = False
+          gem_counter = 0
+          screen.fill(BACKGROUND_COLOR)
+          clicked_tiles = [0]*25
+          print(f"you clicked {number_of_clicked_gems} gems!")
+          number_of_clicked_gems = 0
+          x = 0
+          y = 0
+        else:
+          running = False
 
-  if not clicked_tiles[randmine-1]:
+  if not clicked_tiles[randmine-1] and displayed_gems:
     get_clicked(events)
 
   pygame.display.update()
   
-  if has_won():
+  if has_won() and displayed_gems:
     reload_sprite(win_screen, 0, 390)
-    time.sleep(1.5)
-    print("You did it!")
-    running = False
-    exit
+
 
 pygame.quit()
