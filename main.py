@@ -31,6 +31,8 @@ MAX_GEM_COUNT = 25
 MAX_GEMS_TO_PRINT = 5
 HORIZONTAL_PADDING = 80
 VERTICAL_PADDING = 30
+
+number_of_clicked_gems = 0
 gem_counter = 0
 x = 0
 y = 0
@@ -38,6 +40,7 @@ y = 0
 def get_clicked(events):
   global clicked_tiles
   global running
+  global number_of_clicked_gems
   for event in events:
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
@@ -51,11 +54,12 @@ def get_clicked(events):
               time.sleep(0.25)
               clicked_tiles[i] = 1
               print("you clicked a mine stupidface")
+              print(f"you clicked {number_of_clicked_gems} gems!")
               running = False
             else:
               reload_sprite(gem, board[i].x, board[i].y)
               clicked_tiles[i] = 1
-              print(f"You clicked gem number {i+1}")
+              number_of_clicked_gems += 1
 
 def load_sprite(sprite, x, y):
   global board
