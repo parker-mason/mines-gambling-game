@@ -1,5 +1,5 @@
 import pygame #fuck you andrew, you are demoted to my 5th favorite black person, you should give me sloppy slop in the bathroom to compensate for your errors, I will taste your insides. - Parker Ray Mason 
-
+import time
 import random
 
 pygame.init()
@@ -18,11 +18,12 @@ screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
 randmine = random.randint(1,25)
 
 board = []
-clicked_tiles = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0]
+clicked_tiles = [0] * 25
 
 gem = Sprite("Assets/Gem.png")
 mine = Sprite("Assets/Mine.png")
 blank_tile = Sprite("Assets/Blank Tile.png")
+mine_lost = Sprite("Assets/Mine-lost.png")
 
 GEM_WIDTH = 144
 GEM_HEIGHT = 144
@@ -43,6 +44,11 @@ def get_clicked(events):
           if board[i].collidepoint(event.pos) and clicked_tiles[i] != 1 and not has_won():
             if i+1 == randmine:
               reload_sprite(mine, board[i].x, board[i].y)
+              time.sleep(0.25)
+              reload_sprite(mine_lost, board[i].x, board[i].y)
+              time.sleep(0.25)
+              reload_sprite(mine, board[i].x, board[i].y)
+              time.sleep(0.25)
               clicked_tiles[i] = 1
               print("you clicked a mine stupidface")
               running = False
@@ -60,6 +66,7 @@ def load_sprite(sprite, x, y):
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
+  pygame.display.update()
 
 def has_won():
   for i in range(0, 25):
