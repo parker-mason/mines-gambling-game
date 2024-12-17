@@ -111,7 +111,7 @@ while running:
       if event.key == pygame.K_RSHIFT:
         print("quit shortcut key pressed\nexiting program...")
         running = False
-      elif event.key == pygame.K_RETURN:
+      elif event.key == pygame.K_r:
         if True:#clicked_tiles[randmine-1]:
           board.clear()
           randmine = random.randint(1,25)
