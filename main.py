@@ -24,6 +24,8 @@ gem = Sprite("Assets/Gem.png")
 mine = Sprite("Assets/Mine.png")
 blank_tile = Sprite("Assets/Blank Tile.png")
 mine_lost = Sprite("Assets/Mine-lost.png")
+lose_screen = Sprite("Assets/Lose Screen.png")
+win_screen = Sprite("Assets/Win Screen.png")
 
 GEM_WIDTH = 144
 GEM_HEIGHT = 144
@@ -51,7 +53,9 @@ def get_clicked(events):
               reload_sprite(mine_lost, board[i].x, board[i].y)
               time.sleep(0.25)
               reload_sprite(mine, board[i].x, board[i].y)
-              time.sleep(0.25)
+              time.sleep(0.5)
+              reload_sprite(lose_screen, 0, 390)
+              time.sleep(1.5)
               clicked_tiles[i] = 1
               print("you clicked a mine stupidface")
               print(f"you clicked {number_of_clicked_gems} gems!")
@@ -118,6 +122,8 @@ while running:
   pygame.display.update()
   
   if has_won():
+    reload_sprite(win_screen, 0, 390)
+    time.sleep(1.5)
     print("You did it!")
     running = False
     exit
