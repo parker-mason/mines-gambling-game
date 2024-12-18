@@ -78,8 +78,6 @@ def generate_mine(number_of_mines):
     mines_unused.pop(mine_generated-1)
     possible_mines -= 1
   return mines
-  
-
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
@@ -90,7 +88,6 @@ def has_won():
     if clicked_tiles[i] == 0 and i+1 != randmine:
       return False
   return True
-
 
 screen.fill(BACKGROUND_COLOR)
 
@@ -146,6 +143,5 @@ while running:
   
   if has_won() and displayed_gems:
     reload_sprite(win_screen, 0, 390)
-
 
 pygame.quit()
