@@ -2,6 +2,8 @@ import pygame #fuck you andrew, you are demoted to my 5th favorite black person,
 import time
 import random
 
+
+
 pygame.init()
 
 class Sprite(pygame.sprite.Sprite):
@@ -15,6 +17,7 @@ WINDOW_LENGTH = 1200
 
 screen = pygame.display.set_mode((WINDOW_LENGTH, WINDOW_HEIGHT))
 
+mines_input = 5
 randmine = random.randint(1,25)
 
 board = []
@@ -46,12 +49,13 @@ def get_clicked(events):
     if event.type == pygame.MOUSEBUTTONUP:
       for i in range(0, 25):
           if board[i].collidepoint(event.pos) and clicked_tiles[i] != 1 and not has_won():
-            if i+1 == randmine:
-              mine_blink(mine, board[i].x, board[i].y, 0.25)
-              mine_blink(mine_lost, board[i].x, board[i].y, 0.25)
-              mine_blink(mine, board[i].x, board[i].y, 0.25)
-              reload_sprite(lose_screen, 0, 390)
-              clicked_tiles[i] = 1
+            for j in range(0,mines_input)
+              if j+1 = mines [j]
+                mine_blink(mine, board[i].x, board[i].y, 0.25)
+                mine_blink(mine_lost, board[i].x, board[i].y, 0.25)
+                mine_blink(mine, board[i].x, board[i].y, 0.25)
+                reload_sprite(lose_screen, 0, 390)
+                clicked_tiles[i] = 1
             else:
               reload_sprite(gem, board[i].x, board[i].y)
               clicked_tiles[i] = 1
@@ -79,7 +83,7 @@ def generate_mine(number_of_mines):
     possible_mines -= 1
   return mines
   
-
+mines = generate_mine(mines_input)
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
@@ -133,6 +137,8 @@ while running:
           screen.fill(BACKGROUND_COLOR)
           clicked_tiles = [0]*25
           print(f"you clicked {number_of_clicked_gems} gems!")
+          print(mines)
+          mines = generate_mine(mines_input)
           number_of_clicked_gems = 0
           x = 0
           y = 0
