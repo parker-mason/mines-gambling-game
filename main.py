@@ -19,6 +19,7 @@ randmine = random.randint(1,25)
 
 board = []
 clicked_tiles = [0] * 25
+menu_is_focused = False
 
 gem = Sprite("Assets/Gem.png")
 mine = Sprite("Assets/Mine.png")
@@ -26,6 +27,7 @@ blank_tile = Sprite("Assets/Blank Tile.png")
 mine_lost = Sprite("Assets/Mine-lost.png")
 lose_screen = Sprite("Assets/Lose Screen.png")
 win_screen = Sprite("Assets/Win Screen.png")
+menu = Sprite("Assets/Menu.png")
 
 GEM_WIDTH = 144
 GEM_HEIGHT = 144
@@ -110,6 +112,7 @@ while running:
       y += GEM_HEIGHT
       x = 0
     displayed_gems = True
+    reload_sprite(menu, WINDOW_LENGTH-15-30, 15)
 
   keys = pygame.key.get_pressed()
   events = pygame.event.get()
