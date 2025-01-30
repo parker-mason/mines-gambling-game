@@ -154,9 +154,9 @@ while running:
 
   """ 
   --currency system--
-  [] display current ammount bet
-  [] accurately modify ammount based on how many mines are active
-  [] set ammount to zero if a mine is clicked
+  [] display current amount bet
+  [] accurately modify amount based on how many mines are active
+  [] set amount to zero if a mine is clicked
   """
 
   pygame.display.update()
