@@ -142,6 +142,23 @@ while running:
   if not clicked_tiles[randmine-1] and displayed_gems:
     get_clicked(events)
 
+  if menu_is_focused:
+    """
+    [] open menu
+    [] only get input from menu actions
+    [] change amount of mines to display
+    [] close menu
+    [] refresh button in menu
+    [] exit button (cash out)
+    """
+
+  """ 
+  --currency system--
+  [] display current ammount bet
+  [] accurately modify ammount based on how many mines are active
+  [] set ammount to zero if a mine is clicked
+  """
+
   pygame.display.update()
   
   if has_won() and displayed_gems:
