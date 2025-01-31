@@ -84,11 +84,11 @@ def generate_mine(number_of_mines):
     mines_unused.pop(mine_generated-1)
     possible_mines -= 1
   return mines
-<<<<<<< HEAD
+
   
 mines = generate_mine(mines_input)
 =======
->>>>>>> 23c8de59b43041c84482bb653533b08d638dd11b
+
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
