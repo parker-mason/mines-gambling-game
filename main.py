@@ -22,6 +22,7 @@ randmine = random.randint(1,25)
 
 board = []
 clicked_tiles = [0] * 25
+menu_is_focused = False
 
 gem = Sprite("Assets/Gem.png")
 mine = Sprite("Assets/Mine.png")
@@ -29,6 +30,7 @@ blank_tile = Sprite("Assets/Blank Tile.png")
 mine_lost = Sprite("Assets/Mine-lost.png")
 lose_screen = Sprite("Assets/Lose Screen.png")
 win_screen = Sprite("Assets/Win Screen.png")
+menu = Sprite("Assets/Menu.png")
 
 GEM_WIDTH = 144
 GEM_HEIGHT = 144
@@ -82,8 +84,11 @@ def generate_mine(number_of_mines):
     mines_unused.pop(mine_generated-1)
     possible_mines -= 1
   return mines
+<<<<<<< HEAD
   
 mines = generate_mine(mines_input)
+=======
+>>>>>>> 23c8de59b43041c84482bb653533b08d638dd11b
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
@@ -94,7 +99,6 @@ def has_won():
     if clicked_tiles[i] == 0 and i+1 != randmine:
       return False
   return True
-
 
 screen.fill(BACKGROUND_COLOR)
 
@@ -117,6 +121,7 @@ while running:
       y += GEM_HEIGHT
       x = 0
     displayed_gems = True
+    reload_sprite(menu, WINDOW_LENGTH-15-30, 15)
 
   keys = pygame.key.get_pressed()
   events = pygame.event.get()
@@ -148,10 +153,26 @@ while running:
   if not clicked_tiles[randmine-1] and displayed_gems:
     get_clicked(events)
 
+  if menu_is_focused:
+    """
+    [] open menu
+    [] only get input from menu actions
+    [] change amount of mines to display
+    [] close menu
+    [] refresh button in menu
+    [] exit button (cash out)
+    """
+
+  """ 
+  --currency system--
+  [] display current amount bet
+  [] accurately modify amount based on how many mines are active
+  [] set amount to zero if a mine is clicked
+  """
+
   pygame.display.update()
   
   if has_won() and displayed_gems:
     reload_sprite(win_screen, 0, 390)
-
 
 pygame.quit()
