@@ -83,9 +83,7 @@ def generate_mine(number_of_mines):
     possible_mines -= 1
   return mines
 
-  
-mines = generate_mine(mines_input)
-
+mines = generate_mine(randmine)
 
 def  reload_sprite(sprite, x, y):
   screen.blit(sprite.image, (x, y))
@@ -139,7 +137,7 @@ while running:
           screen.fill(BACKGROUND_COLOR)
           clicked_tiles = [0]*25
           print(f"you clicked {number_of_clicked_gems} gems!")
-          mines = generate_mine(mines_input)
+          mines = generate_mine(randmine)
           number_of_clicked_gems = 0
           x = 0
           y = 0
@@ -165,7 +163,6 @@ while running:
   [] accurately modify amount based on how many mines are active
   [] set amount to zero if a mine is clicked
   """
-
   pygame.display.update()
   
   if has_won() and displayed_gems:
